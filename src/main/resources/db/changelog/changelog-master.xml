@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+	<changeSet author="mmouton" id="1">
+		<sql>
+			CREATE TABLE `configuration` (
+			  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+			  `code` varchar(55) NOT NULL,
+			  `value` text NOT NULL,
+			  `module` varchar(55) NOT NULL,
+			  PRIMARY KEY (`id`)
+			) ENGINE=InnoDB AUTO_INCREMENT=130 DEFAULT CHARSET=utf8mb3;						
+		</sql>
+		<rollback>
+			<dropTable tableName="configuration"/>
+		</rollback>
+	</changeSet>
+	
+	<changeSet author="mmouton" id="2">
+		<sql>
+			CREATE TABLE `cdn` (
+			  `code` VARCHAR(55) NOT NULL,
+			  `publicpath` VARCHAR(255) NOT NULL,
+			  PRIMARY KEY (`code`));
+			  
+			INSERT INTO `cdn` (`code`, `publicpath`) VALUES 
+			('directours', 'https://s3-eu-west-1.b-cdn.net/directours-resources'),
+			('kappa', 'https://s3-eu-west-1.b-cdn.net/kappa-ressources'),
+			('coralia', 'https://s3-eu-west-1.b-cdn.net/clubcoralia-ressources'),
+			('eldorador', 'https://s3-eu-west-1.b-cdn.net/clubeldorador-ressources');
+			  					
+		</sql>
+		<rollback>
+			<dropTable tableName="cdn"/>
+		</rollback>
+	</changeSet>
+	
+	
+</databaseChangeLog>
