@@ -37,5 +37,39 @@
 		</rollback>
 	</changeSet>
 	
+	<changeSet author="mmouton" id="3">
+		<validCheckSum>9:6f80cb2778cdc1689d86573972b52660</validCheckSum>
+		<sql><![CDATA[ 
+			CREATE TABLE `export_catalog` (
+			  `id` int NOT NULL AUTO_INCREMENT,
+			  `white_label_code` varchar(45) NOT NULL,
+			  `domain` varchar(100) NOT NULL,
+			  `search_url` varchar(100) NOT NULL,
+			  `export_destinations` tinyint NOT NULL DEFAULT '1',
+			  `export_products` tinyint NOT NULL DEFAULT '1',
+			  `format` ENUM('pms', 'jt') NOT NULL DEFAULT 'pms' COMMENT 'ORX backend type. Same value as spring profile',
+			  `cron` varchar(45) NOT NULL DEFAULT '0 0 3 * * ?',
+			  `active` tinyint NOT NULL DEFAULT '1',
+			  `output_dir` varchar(100) NOT NULL DEFAULT '/home/ec2-user/',
+  			  `test` tinyint DEFAULT '0',
+			  PRIMARY KEY (`id`),
+			  UNIQUE KEY `id_UNIQUE` (`id`)
+			) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+				
+			INSERT INTO `export_catalog`
+				(`white_label_code`, `domain`, `search_url`, `export_destinations`, `export_products`, `format`, `cron`, `active`, `output_dir`, `test`)
+				VALUES
+				('promocam', 'www.promosejours.com', '/searchProduct.do?searchContext=destinations&de=', 1, 1, 'pms', '0 0 4 * * ?', 1, '/tmp/', 1),
+				('kappa', 'www.kappaclub.fr', '/searchProduct.do?de=', 1, 1, 'pms', '', 1, '/tmp/', 1),
+				('clubcoralia', 'www.clubcoralia.fr', '/searchProduct.do?de=', 1, 1, 'pms', '', 1, '/tmp/', 1),
+				('clubeldorador', 'www.clubeldorador.com', '/searchProduct.do?de=', 1, 1, 'pms', '', 1, '/tmp/', 1),
+				('jettours', 'www.jettours.com', '/searchProduct.do?CDM=', 1, 1, 'jt', '0 0 3 * * ?', 1, '/tmp/', 1),
+				('directours', 'www.directours.com', '/searchProduct.do?CDM=', 1, 1, 'jt', '', 1, '/tmp/', 1);			
+		]]>
+		</sql>
+		<rollback>
+			<dropTable tableName="export_catalog"/>
+		</rollback>
+	</changeSet>
 	
 </databaseChangeLog>

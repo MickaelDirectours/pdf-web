@@ -69,6 +69,10 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<dependency>
+			<groupId>ngtravel</groupId>
+			<artifactId>ngtravel-resoneo</artifactId>
+		</dependency>
 		
 		<dependency>
 		    <groupId>com.github.ben-manes.caffeine</groupId>
