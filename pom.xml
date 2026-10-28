@@ -11,7 +11,7 @@
 	<parent>
 		<groupId>ngtravel.maven</groupId>
 		<artifactId>parent-website</artifactId>
-		<version>3.7</version>
+		<version>3.7-standalone</version>
 	</parent>
 
 	<properties>
