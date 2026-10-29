@@ -90,6 +90,9 @@ public class PdfAuroraController {
 		} else {
 			tangramConfiguration = tangramConfigurationDao.find();
 		}
+		
+		log.info("Find product {} for tangramConfiguration {} and whiteLabelCode {}", productId, tangramConfiguration.getId(), whiteLabelCode);
+		
 		ProductListItem product = productService.findProduct(productId, tangramConfiguration, whiteLabelCode);
 		return product;
 	}
