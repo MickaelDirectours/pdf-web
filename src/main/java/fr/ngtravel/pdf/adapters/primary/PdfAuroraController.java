@@ -91,7 +91,7 @@ public class PdfAuroraController {
 			tangramConfiguration = tangramConfigurationDao.find();
 		}
 		
-		log.info("Find product {} for tangramConfiguration {} and whiteLabelCode {}", productId, tangramConfiguration.getId(), whiteLabelCode);
+		log.info("Find product {} for tangramConfiguration {} and whiteLabelCode {}", productId, tangramConfiguration, whiteLabelCode);
 		
 		ProductListItem product = productService.findProduct(productId, tangramConfiguration, whiteLabelCode);
 		return product;
