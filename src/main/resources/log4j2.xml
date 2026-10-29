@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="consoleAppender" target="SYSTEM_OUT">
+          <PatternLayout pattern="%d{dd/MM/yyyy - HH:mm:ss} - [%p] - (%F:%L) : %m%n"/>
+        </Console>
+        <RollingFile  name="fileAppender" fileName="C:/sources/logs/jt.log" append="false" filePattern="jt-%i.log">
+            <PatternLayout>
+                <Pattern>%d{dd/MM/yyyy - HH:mm:ss} - [%p] : %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="50MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+        
+        <RollingFile  name="lastminutesfileAppender" fileName="C:/sources/logs/jt-lastminutes.log" append="false" filePattern="jt-lastminutes-%i.log">
+            <PatternLayout>
+                <Pattern>%d{dd/MM/yyyy - HH:mm:ss} - [%p] : %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="50MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+        
+        <RollingFile  name="tunnelFileAppender" fileName="C:/sources/logs/jt-tunnel.log" append="false" filePattern="jt-tunnel-%i.log">
+            <PatternLayout>
+                <Pattern>%d{dd/MM/yyyy - HH:mm:ss} - thread[%tid] - [%p] : %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="50MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="com.jt.website" level="DEBUG"/>
+        <Logger name="fr.ngtravel" level="DEBUG"/>
+        <Logger name="fr.ngtravel.siptosTunnel.service.impl" level="DEBUG"/>
+        <Logger name="tech.tunnel" level="INFO">
+        	<AppenderRef ref="tunnelFileAppender"/>
+        </Logger>
+        <Logger name="usecase.displayLastMinutes" level="INFO" additivity="false">
+            <AppenderRef ref="lastminutesfileAppender"/>
+            <AppenderRef ref="consoleAppender"/>
+        </Logger>
+        
+        
+        <Logger name="org.springframework.cache" level="INFO"/>
+        <Logger name="org.springframework.security" level="WARN"/>
+        <Logger name="org.springframework.context" level="WARN"/>
+        <Logger name="io.awspring.cloud.sqs" level="WARN"/>
+        
+        
+        <Root level="WARN">
+            <AppenderRef ref="consoleAppender"/>
+            <AppenderRef ref="fileAppender"/>
+        </Root>
+    </Loggers>
+</Configuration>
