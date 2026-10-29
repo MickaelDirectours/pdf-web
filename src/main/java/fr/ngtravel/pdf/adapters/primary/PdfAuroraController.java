@@ -108,6 +108,7 @@ public class PdfAuroraController {
 			model.addAttribute("product", product);
 			return internalRenderer.evalView(request, response, model, Locale.FRENCH, viewPath);
 		} catch (Exception e) {
+			log.error("Error while executing jsp view {} for product {}", viewPath, product, e);
 			throw new RuntimeException(e);
 		}
 	}
@@ -131,6 +132,7 @@ public class PdfAuroraController {
 
 			return new HttpEntity<byte[]>(document, header);
 		} catch (IOException e) {
+			log.error("Error while creating pdf response for tenant {} and fileName {}", tenant, fileName, e);
 			throw new RuntimeException(e);
 		}
 	}
