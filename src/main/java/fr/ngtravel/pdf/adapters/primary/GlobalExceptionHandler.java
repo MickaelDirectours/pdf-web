@@ -13,13 +13,16 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 
 @ControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
     @ExceptionHandler({NoHandlerFoundException.class})
     public ResponseEntity<ErrorResponse> handleNoHandlerFoundException(
             NoHandlerFoundException ex, HttpServletRequest request) {
+    	log.error("An unexpected error occurred: {}", ex.getMessage(), ex);
         ErrorResponse error = new ErrorResponseException(HttpStatusCode.valueOf(500), ex);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).contentType(MediaType.APPLICATION_JSON).body(error);
     }
@@ -27,6 +30,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ModelAndView handleCustomException(Exception ex) {
+    	log.error("An unexpected error occurred: {}", ex.getMessage(), ex);
     	return new ModelAndView("forward:/error", "error", ex);
     }
 }
