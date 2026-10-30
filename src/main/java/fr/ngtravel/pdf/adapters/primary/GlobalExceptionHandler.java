@@ -20,7 +20,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({NoHandlerFoundException.class})
     public ResponseEntity<ErrorResponse> handleNoHandlerFoundException(
             NoHandlerFoundException ex, HttpServletRequest request) {
-        System.out.println("No handler found exception");
         ErrorResponse error = new ErrorResponseException(HttpStatusCode.valueOf(500), ex);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).contentType(MediaType.APPLICATION_JSON).body(error);
     }
@@ -29,7 +28,6 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public ErrorResponse handleCustomException(Exception ex) {
-        // This will return the response in JSON format
         return new ErrorResponseException(HttpStatusCode.valueOf(500), ex);
     }
 }
