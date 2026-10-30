@@ -8,8 +8,8 @@ import org.springframework.web.ErrorResponse;
 import org.springframework.web.ErrorResponseException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,8 +26,7 @@ public class GlobalExceptionHandler {
     
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ResponseBody
-    public ErrorResponse handleCustomException(Exception ex) {
-        return new ErrorResponseException(HttpStatusCode.valueOf(500), ex);
+    public ModelAndView handleCustomException(Exception ex) {
+    	return new ModelAndView("forward:/error", "error", ex);
     }
 }
